@@ -18,6 +18,7 @@
     --efa-gray-800: #343a40;
     --efa-gray-900: #212529;
     --efa-secondary: #5382ed;
+    --efa-first-Backg: linear-gradient(to left, cyan, pink);
 }
 body{
     padding:0;
@@ -79,7 +80,8 @@ button{
     border-radius: 8px;
     border: none;
     background: linear-gradient(90deg, cyan, pink);
-    color:var(--efa-gray-700);
+    color:var(--efa-gray-600);
+    font-family: inter;
 }
 button:hover{
     border: none;
@@ -89,3 +91,59 @@ button:hover{
 button:focus{
     border:2px solid var(--efa-gray-100) ;
 }
+#efa-chatMessage{
+    color:var(--efa-purpleB);
+    display: flex;
+    justify-content: center;
+    position:relative;
+    top:-150px;
+    font-weight:600;
+    font-size: x-large;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.thanks{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top:220px;
+    left:-400px;
+    background:linear-gradient(120deg, cyan, pink);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color: transparent;
+  }
+.hello{
+    color:azure;
+    position: absolute;
+    top:180px;
+    left:-440px;
+
+  }
+#autoText{
+    color:var(--efa-gray-300);
+    position: absolute;
+    top:200px;
+    left:430px;
+    font-size: 18px;
+    
+}
+@media (max-width:678px) {
+    #autoText{
+       left:130px;
+    }
+}
+a{
+    color:var(--efa-gray-600);
+    text-decoration: none;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+  #newPage{
+    background-color: var(--efa-gray-500);
+    height:45px;
+    width:80px;
+    position: absolute;
+    top:380px;
+    right:90px;
+}
+  
