@@ -87,9 +87,12 @@ button:hover{
     border: none;
     opacity: 0.7;
     transition: all 0.2s;
+    cursor: pointer;
 }
 button:focus{
     border:2px solid var(--efa-gray-100) ;
+    font-family: inter bold;
+    font-size: 12px;
 }
 #efa-chatMessage{
     color:var(--efa-purpleB);
@@ -133,9 +136,10 @@ button:focus{
     }
 }
 a{
-    color:var(--efa-gray-600);
+    color:var(--efa-gray-800);
     text-decoration: none;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: inter bold;
+    font-weight: 500;
 }
 
   #newPage{
