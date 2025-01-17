@@ -19,7 +19,7 @@ const forUser = document.getElementById("efa-chatMessage");
   forUser.innerHTML = `<h3 class="hello"> Warm Welcome ${userName}!</h3><br>
   <p class="thanks">thanks for signing</p>
   <button id="newPage">
-    <a href="pages/homePage.html?name=${userName}"class="herebtn">click here<a>
+    <a href="Chat/e-Chat.html?name=${userName}"class="herebtn">click here<a>
   </button>`
   // Auto text effect animation
 let isSearchActive = false; // This variable Controls flag for auto text effect
