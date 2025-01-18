@@ -1,0 +1,80 @@
+:root{
+    --efa-Blue: #2f8be6;
+    --efa-lightB: #2989d7;
+    --efa-darkb: #356ddc;
+    --efa-sea: #397d92;
+    --efa-purpleB-:hsl(234,100%,66%);
+    --efa-white: #fff;
+    --efa-gray: #6c757d;
+    --efa-gray-dark: #343a40;
+    --efa-gray-100: #f8f9fa;
+    --efa-gray-200: #e9ecef;
+    --efa-gray-300: #dee2e6;
+    --efa-gray-400: #ced4da;
+    --efa-gray-500: #adb5bd;
+    --efa-gray-600: #6c757d;
+    --efa-gray-700: #495057;
+    --efa-gray-800: #343a40;
+    --efa-gray-900: #212529;
+    --efa-secondary: #5382ed;
+    --efa-code-color: #4e98ac9a;
+    --efa-background: linear-gradient(to right, pink,cyan);
+    --efa-background2:  linear-gradient( rgb(72, 77, 79),var(--efa-Blue));
+}
+
+*{
+    font-family: "Inter", sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    transition: .4s; /*this style changes smoothly the colors*/
+}
+body{
+    margin:0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient( rgb(72, 77, 79),var(--efa-Blue));
+}
+.pre-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: var(--efa-gray-200);
+    padding:10px;
+    position:absolute;
+    top:0px;
+    width:100%;
+  }
+  .icon{
+    filter: saturate(270%);
+  }
+  #engage{
+    background: linear-gradient(10deg, var(--efa-gray-700),cyan);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .Profile{
+    background-color: var(--efa-gray-600);
+    padding:5px;
+    margin-right: 20px;
+    color:var(--efa-gray-200);
+    border-radius: 30px;
+  }
+  .chatbot-popup{
+    width: 440px;
+    margin-top:75px;
+    position:relative;
+    overflow: hidden;
+    border-radius: 15px;
+    color:var(--efa-gray-100);
+    box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1), 0 32px 64px -48px rgba(0, 0, 0, 0.5);
+}
+.chat-header{
+    display: flex;
+    align-items: center;
+    background: var(--efa-gray-900);
+    padding:15px 22px;
+    justify-content: space-between;
+}  
