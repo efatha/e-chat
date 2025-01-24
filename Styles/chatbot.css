@@ -107,7 +107,9 @@ body{
   display: flex;
   flex-direction: column;
   gap:10px;
-  margin-bottom: 20px;
+  overflow-y:auto ;
+  height:440px;
+  margin-bottom: 82px;
 }
 .chat-body .message{
   display: flex;
@@ -123,15 +125,15 @@ body{
   background:var(--efa-gray-400);
   border-radius: 50%;
 }
-.chat-body .user-message {
-  display: flex;
+.chat-body .user-message{
   flex-direction: column;
-  align-items: flex-end; /* Aligns the message to the right */
+  align-items: flex-end;
+}
+.chat-body .user-message .message-text{
   color: var(--efa-gray-900); /* Ensures good contrast for the text */
   background-image: linear-gradient(45deg, cyan, pink); /* Distinct gradient background */
   padding: 10px 15px; /* Adds internal spacing for better readability */
   margin: 8px 0; /* Separates messages vertically */
-  border-radius: 16px 16px 4px 16px; /* Creates a chat bubble effect */
   max-width: 60%; /* Prevents the message bubble from stretching too wide */
   word-wrap: break-word; /* Keeps long text within the bubble */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adds depth with a subtle shadow */
@@ -148,6 +150,10 @@ body{
   background-color: var(--efa-sea);
   border-radius: 8px;
   border-radius: 12px 12px 12px 2px;
+}
+.chat-body .bot .message-text{
+  border-radius: 12px 12px 2px 12px; /* Creates a chat bubble effect */
+
 }
 .chat-body .message .message-text .thinking-indicator{
   padding: 10px 12px;
@@ -166,6 +172,13 @@ body{
   fill: pink; /* Change color on hover */
   transform: scale(1.2);
 }
+.echat-footer {
+  position: absolute;
+  bottom: 10px; /* Reduced space at the bottom */
+  left: 10px;
+  right: 10px; /* Ensures the input box fills the available width within the footer */
+  width: calc(100% - 20px); /* Ensure form spans full width minus padding */
+}
 .echat-footer form {
   display: flex;
   align-items: center;
@@ -173,6 +186,7 @@ body{
   border-radius: 24px; /* Slightly smaller radius */
   outline: 1px solid var(--efa-gray-400);
   padding: 5px; /* Added padding inside the form for a compact design */
+  width: 100%;
 }
 .echat-footer form:focus-within {
   outline: 2px solid var(--efa-gray-500);
@@ -186,14 +200,14 @@ form #message-input {
   font-size: 0.9rem; /* Slightly smaller font size */
   padding: 10px 0 10px 14px; /* Adjusted padding for better alignment */
   border-radius: inherit;
+  background: var(--efa-gray-100);
 }
 form .echat-controls {
   display: flex;
   height: 40px; /* Matches the input field height */
   align-items: center;
-  align-self: flex-end;
   padding-right: 4px; /* Slightly reduced padding */
-  gap: 5px; /* Adjusted gap for better spacing */
+  gap: 10px; /* Adjusted gap for better spacing */
 }
 
 form .echat-controls .icon-container {
