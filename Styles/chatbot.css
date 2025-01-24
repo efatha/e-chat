@@ -149,6 +149,12 @@ body{
   border-radius: 8px;
   border-radius: 12px 12px 12px 2px;
 }
+.chat-body .message .message-text .thinking-indicator{
+  padding: 10px 12px;
+  max-width: 100%;
+  border-radius: 8px;
+  border-radius: 12px 12px 12px 2px;
+}
 /* style the icon colors */
 .size-6 {
   width: 40px;
@@ -201,5 +207,45 @@ form .echat-controls .icon-container {
   transition: background-color 0.2s ease;
 }
 form .echat-controls .icon-container:hover {
-  background-color: var(--efa-gray-200); /* Subtle hover effect */
+  background-color:none;
+   /* Subtle hover effect */
+}
+.icon-container button{
+  border:none;
+  background: none;
+}
+/* thinking message */
+.chat-body .bot-message .thinking-indicator {
+  display: flex;
+  justify-content: center; /* Center the dots for symmetry */
+  gap: 6px; /* Slightly increased gap for better spacing */
+  padding-block: 15px;
+}
+
+.chat-body .bot-message .thinking-indicator .dot {
+  height: 8px; /* Slightly larger for modern feel */
+  width: 8px;
+  opacity: 0.5;
+  border-radius: 50%;
+  background: var(--efa-background);
+  animation: efatAiThinking 1.5s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+.chat-body .bot-message .thinking-indicator .dot:nth-child(1) {
+  animation-delay: 0s;
+}
+.chat-body .bot-message .thinking-indicator .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.chat-body .bot-message .thinking-indicator .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes efatAiThinking {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-6px); /* Higher lift for a more dynamic look */
+    opacity: 1; /* Full opacity for emphasis */
+  }
 }
