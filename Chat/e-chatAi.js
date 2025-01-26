@@ -21,7 +21,19 @@ const handleOutgoingMsg = (e) => {
     const msgContent = `<div class="message-text">${userData.message}</div>`;
     const outgoingMsgDiv = createMsgElement(msgContent, "user-message");
     eChatBody.appendChild(outgoingMsgDiv);
-    
+    // Simulate bot response with indicator after a delay
+    setTimeout(() => {
+        const msgContent = `<img class="bot-avatar" src="/icon/artificial-intelligence.gif" alt="">
+               <div class="message-text">
+                   <div class="thinking-indicator">
+                       <div class="dot"></div>
+                       <div class="dot"></div>
+                       <div class="dot"></div>
+                   </div>
+               </div>`;
+        const incomingMsgDiv = createMsgElement(msgContent, "bot-message");
+        eChatBody.appendChild(incomingMsgDiv);
+    }, 500);
     // Scroll to the latest message
     eChatBody.scrollTop = eChatBody.scrollHeight;
     
