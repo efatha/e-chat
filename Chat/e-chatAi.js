@@ -2,6 +2,9 @@ const msgInput = document.getElementById("message-input");
 const sendMsgBtn = document.querySelector(".send-message");
 const eChatBody = document.querySelector(".chat-body"); // Corrected the class selector
 
+const API_KEY = "AIzaSyBl1YM-6ZUmidqoIBByNwCxVkdrVhhf7Jk";
+const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
 const userData = {
     message: null
 }
@@ -11,6 +14,28 @@ const createMsgElement = (content, classes) => {
     div.classList.add("message", classes);
     div.innerHTML = content;
     return div;
+}
+
+// Generate e-chat response using API
+const generateEchatResponse = async () => {
+   const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        contents: [{
+            parts: [{text: userData.message}]
+        }]
+      })
+   }
+   try {
+    // fetch data
+     const response = await fetch(API_URL, requestOptions);
+     const data = await response.json();
+     if(!response.ok) throw new Error(data.error.message);
+     console.log(data);
+   } catch(error){
+    console.log(error);
+   }
 }
 
 // Handle outgoing messages
@@ -33,6 +58,7 @@ const handleOutgoingMsg = (e) => {
                </div>`;
         const incomingMsgDiv = createMsgElement(msgContent, "bot-message");
         eChatBody.appendChild(incomingMsgDiv);
+        generateEchatResponse();
     }, 500);
     // Scroll to the latest message
     eChatBody.scrollTop = eChatBody.scrollHeight;
