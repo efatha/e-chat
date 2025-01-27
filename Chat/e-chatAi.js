@@ -17,7 +17,8 @@ const createMsgElement = (content, classes) => {
 }
 
 // Generate e-chat response using API
-const generateEchatResponse = async () => {
+const generateEchatResponse = async (incomingMsgDiv) => {
+   const msgElement = incomingMsgDiv.querySelector(".message-text"); 
    const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -33,6 +34,9 @@ const generateEchatResponse = async () => {
      const data = await response.json();
      if(!response.ok) throw new Error(data.error.message);
      console.log(data);
+    //  Extract and display e-chat text response
+     const apiTextResponse = data.candidates[0].content.parts[0].text.trim();
+     msgElement.innerText = apiTextResponse;
    } catch(error){
     console.log(error);
    }
@@ -58,7 +62,7 @@ const handleOutgoingMsg = (e) => {
                </div>`;
         const incomingMsgDiv = createMsgElement(msgContent, "bot-message");
         eChatBody.appendChild(incomingMsgDiv);
-        generateEchatResponse();
+        generateEchatResponse(incomingMsgDiv);
     }, 500);
     // Scroll to the latest message
     eChatBody.scrollTop = eChatBody.scrollHeight;
