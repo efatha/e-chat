@@ -110,6 +110,8 @@ body{
   overflow-y:auto ;
   height:440px;
   margin-bottom: 82px;
+  scrollbar-width:thin;
+  scrollbar-color: var(--efa-code-color) transparent;
 }
 .chat-body .message{
   display: flex;

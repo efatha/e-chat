@@ -39,6 +39,8 @@ const generateEchatResponse = async (incomingMsgDiv) => {
      msgElement.innerText = apiTextResponse;
    } catch(error){
     console.log(error);
+    msgElement.innerText = error.message;
+    msgElement.style.color="pink"
    }
    finally{
     incomingMsgDiv.classList.remove('thinking');
