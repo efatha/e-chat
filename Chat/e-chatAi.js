@@ -29,16 +29,20 @@ const generateEchatResponse = async (incomingMsgDiv) => {
       })
    }
    try {
-    // fetch data
+    // Fetch data
      const response = await fetch(API_URL, requestOptions);
      const data = await response.json();
      if(!response.ok) throw new Error(data.error.message);
      console.log(data);
-    //  Extract and display e-chat text response
+    // Extract and display e-chat text response
      const apiTextResponse = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1").trim();
      msgElement.innerText = apiTextResponse;
    } catch(error){
     console.log(error);
+   }
+   finally{
+    incomingMsgDiv.classList.remove('thinking');
+    eChatBody.scrollTo({ top: eChatBody.scrollHeight, behavior: "smooth" });
    }
 }
 
@@ -50,6 +54,7 @@ const handleOutgoingMsg = (e) => {
     const msgContent = `<div class="message-text">${userData.message}</div>`;
     const outgoingMsgDiv = createMsgElement(msgContent, "user-message");
     eChatBody.appendChild(outgoingMsgDiv);
+    eChatBody.scrollTo({ top: eChatBody.scrollHeight, behavior: "smooth" });
     // Simulate bot response with indicator after a delay
     setTimeout(() => {
         const msgContent = `<img class="bot-avatar" src="/icon/artificial-intelligence.gif" alt="">
@@ -62,11 +67,9 @@ const handleOutgoingMsg = (e) => {
                </div>`;
         const incomingMsgDiv = createMsgElement(msgContent, "bot-message");
         eChatBody.appendChild(incomingMsgDiv);
+        eChatBody.scrollTo({ top: eChatBody.scrollHeight, behavior: "smooth" });
         generateEchatResponse(incomingMsgDiv);
     }, 500);
-    // Scroll to the latest message
-    eChatBody.scrollTop = eChatBody.scrollHeight;
-    
     // Clear the input field after sending the message
     msgInput.value = '';
 }
@@ -77,4 +80,4 @@ msgInput.addEventListener("keydown", (e) => {
         handleOutgoingMsg(e);
     }
 });
-sendMsgBtn.addEventListener("click", (e) => handleOutgoingMsg(e))
+sendMsgBtn.addEventListener("click", (e) => handleOutgoingMsg(e));
