@@ -57,6 +57,7 @@ const generateEchatResponse = async (incomingMsgDiv) => {
     msgElement.style.color="pink"
    }
    finally{
+    userData.file = {};
     incomingMsgDiv.classList.remove('thinking');
     eChatBody.scrollTo({ top: eChatBody.scrollHeight, behavior: "smooth" });
    }
