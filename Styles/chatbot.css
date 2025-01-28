@@ -265,3 +265,79 @@ form .echat-controls .icon-container:hover {
     opacity: 1; /* Full opacity for emphasis */
   }
 }
+/* Uploaded image container */
+.uploaded-image {
+  display: inline-block;
+  position: relative;
+  margin-top: 10px;
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 100%;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  background: #f0f0f0; /* Fallback for loading effects */
+}
+/* Uploaded image styling */
+.uploaded-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 300px; /* Allow slightly taller images for better visibility */
+  border-radius: 12px;
+  object-fit: cover;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: brightness(1); /* Default brightness */
+}
+/* Hover effect */
+.uploaded-image img:hover {
+  transform: scale(1.08); /* Slight zoom for interactivity */
+  filter: brightness(1.1); /* Brightens the image slightly */
+}
+/* Loading shimmer effect (optional for images still loading) */
+.uploaded-image::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  z-index: 1;
+  opacity: 0; /* Default hidden */
+  transition: opacity 0.3s ease;
+}
+/* Show shimmer while the image is loading */
+.uploaded-image.loading::before {
+  opacity: 1;
+}
+/* Smooth shimmer animation */
+@keyframes shimmer {
+  0% {
+      background-position: -200% 0;
+  }
+  100% {
+      background-position: 200% 0;
+  }
+}
+/* Add a subtle shadow or icon for image preview */
+.uploaded-image::after {
+  content: '\f03e'; /* Unicode for FontAwesome image icon */
+  font-family: "Font Awesome 5 Free"; /* Use FontAwesome for advanced icons */
+  font-weight: 900;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+  pointer-events: none;
+}
+/* Remove icon when hovered for focus on the image */
+.uploaded-image:hover::after {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}

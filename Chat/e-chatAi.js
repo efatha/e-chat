@@ -1,12 +1,17 @@
 const msgInput = document.getElementById("message-input");
 const sendMsgBtn = document.querySelector(".send-message");
-const eChatBody = document.querySelector(".chat-body"); // Corrected the class selector
+const eChatBody = document.querySelector(".chat-body"); 
+const eFile = document.querySelector("#e-file");
 
 const API_KEY = "AIzaSyBl1YM-6ZUmidqoIBByNwCxVkdrVhhf7Jk";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
 const userData = {
-    message: null
+    message: null,
+    file: {
+        data: null,
+        mime_type: null
+    }
 }
 
 const createMsgElement = (content, classes) => {
@@ -24,7 +29,7 @@ const generateEchatResponse = async (incomingMsgDiv) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ 
         contents: [{
-            parts: [{text: userData.message}]
+            parts: [{text: userData.message}, ... (userData.file.data ? [{ inline_data: userData.file}] : [])]
         }]
       })
    }
@@ -52,8 +57,12 @@ const generateEchatResponse = async (incomingMsgDiv) => {
 const handleOutgoingMsg = (e) => {
     e.preventDefault();
     userData.message = msgInput.value.trim();
-
-    const msgContent = `<div class="message-text">${userData.message}</div>`;
+    let msgContent = `<div class="message-text">${userData.message || ""}</div>`;
+    if (userData.file.data) {
+        msgContent += `<div class="uploaded-image">
+                          <img src="data:${userData.file.mime_type};base64,${userData.file.data}" alt="Uploaded Image">
+                       </div>`;
+    }
     const outgoingMsgDiv = createMsgElement(msgContent, "user-message");
     eChatBody.appendChild(outgoingMsgDiv);
     eChatBody.scrollTo({ top: eChatBody.scrollHeight, behavior: "smooth" });
@@ -82,4 +91,22 @@ msgInput.addEventListener("keydown", (e) => {
         handleOutgoingMsg(e);
     }
 });
+// Handle file input change
+eFile.addEventListener("change", () =>{
+    const file = eFile.files[0];
+    if(!file)return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const base64String = e.target.result.split(",")[1];
+        // Srore file data in the userData
+        userData.file = {
+            data: base64String,
+            mime_type: file.type
+        }
+        file.value = "";
+    }
+    reader.readAsDataURL(file);
+})
 sendMsgBtn.addEventListener("click", (e) => handleOutgoingMsg(e));
+document.querySelector("#e-file-upload").addEventListener("click", () => eFile.click());
