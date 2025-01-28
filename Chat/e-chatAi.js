@@ -35,7 +35,7 @@ const generateEchatResponse = async (incomingMsgDiv) => {
      if(!response.ok) throw new Error(data.error.message);
      console.log(data);
     //  Extract and display e-chat text response
-     const apiTextResponse = data.candidates[0].content.parts[0].text.trim();
+     const apiTextResponse = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1").trim();
      msgElement.innerText = apiTextResponse;
    } catch(error){
     console.log(error);
