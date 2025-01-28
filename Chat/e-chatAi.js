@@ -14,6 +14,8 @@ const userData = {
     }
 }
 
+const eChatMemory = []
+
 const createMsgElement = (content, classes) => {
     const div = document.createElement("div");
     div.classList.add("message", classes);
@@ -24,13 +26,15 @@ const createMsgElement = (content, classes) => {
 // Generate e-chat response using API
 const generateEchatResponse = async (incomingMsgDiv) => {
    const msgElement = incomingMsgDiv.querySelector(".message-text"); 
+   eChatMemory.push({
+    role: "user",
+    parts: [{text: userData.message}, ... (userData.file.data ? [{ inline_data: userData.file}] : [])]
+});
    const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ 
-        contents: [{
-            parts: [{text: userData.message}, ... (userData.file.data ? [{ inline_data: userData.file}] : [])]
-        }]
+        contents: eChatMemory
       })
    }
    try {
@@ -42,6 +46,11 @@ const generateEchatResponse = async (incomingMsgDiv) => {
     // Extract and display e-chat text response
      const apiTextResponse = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1").trim();
      msgElement.innerText = apiTextResponse;
+// Add e-chat response from its memory
+     eChatMemory.push({
+        role: "model",
+        parts: [{text: apiTextResponse}]
+    });
    } catch(error){
     console.log(error);
     msgElement.innerText = error.message;

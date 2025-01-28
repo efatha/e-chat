@@ -226,6 +226,21 @@ form .echat-controls .icon-container:hover {
   background-color:none;
    /* Subtle hover effect */
 }
+ form .echat-controls .hide-send-msg{
+  display: none;
+}
+form #message-input:valid~.echat-controls .hide-send-msg{
+  display: flex;
+}
+form .echat-controls .icon-container .send-message{
+  background-color: var(--efa-gray-400);
+  border-radius: 20% 70% 70% 20%;
+}
+form .echat-controls .icon-container .send-message:hover{
+  background-color: var(--efa-sea);
+  border-radius: 20% 80% 80% 20%;
+  padding: 2px;
+}
 .icon-container button{
   border:none;
   background: none;
