@@ -120,3 +120,36 @@ eFile.addEventListener("change", () =>{
 })
 sendMsgBtn.addEventListener("click", (e) => handleOutgoingMsg(e));
 document.querySelector("#e-file-upload").addEventListener("click", () => eFile.click());
+
+// javascript 
+document.addEventListener("DOMContentLoaded", () => {
+    const inputs = document.querySelectorAll(".js-tooltip");
+
+    inputs.forEach(input => {
+      const tooltip = document.createElement("div");
+      tooltip.className = "tooltip";
+      tooltip.innerText = input.getAttribute("title");
+      document.body.appendChild(tooltip);
+
+      input.addEventListener("mouseenter", (e) => {
+        tooltip.style.display = "block";
+        tooltip.style.left = `${e.pageX + 10}px`;
+        tooltip.style.top = `${e.pageY + 10}px`;
+        tooltip.style.background = "var(--efa-background)";
+      });
+
+      input.addEventListener("mousemove", (e) => {
+        tooltip.style.left = `${e.pageX + 10}px`;
+        tooltip.style.top = `${e.pageY + 10}px`;
+      });
+
+      input.addEventListener("mouseleave", () => {
+        tooltip.style.display = "none";
+      });
+
+      // Remove the default title for all elements
+      input.setAttribute("title", "");
+    });
+});
+
+  

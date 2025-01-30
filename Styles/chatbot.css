@@ -356,3 +356,33 @@ form .echat-controls .icon-container .send-message:hover{
   transform: scale(0.8);
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
+
+.tooltip {
+  position: absolute;
+  color: var(--efa-gray-700);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  display: none;
+}
+.custom-tooltip::after {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.custom-tooltip:hover::after {
+  animation: tooltipMove 0.1s linear;
+}
+
+@keyframes tooltipMove {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    transform: translate(-50%, -80%);
+  }
+}
