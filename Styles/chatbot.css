@@ -55,6 +55,14 @@ body{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+  .iconUser{
+    background: linear-gradient(360deg, pink,cyan);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding:5px;
+    display: flex;
+    align-items: center;
+  }
   .Profile{
     background-color: var(--efa-gray-600);
     padding:5px;
