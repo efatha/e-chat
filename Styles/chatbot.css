@@ -336,6 +336,24 @@ form .echat-controls .icon-container .send-message:hover{
       background-position: 200% 0;
   }
 }
+/* The preview file-Uploaded style */
+form .file-upload-wrapper{
+  height:40px;
+  width:45px;
+  position:relative;
+}
+form .file-upload-wrapper .img{
+  position: absolute;
+  display: none;
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  border-radius:50%;
+}
+/* display the uploaded file */
+form .file-upload-wrapper.eFile-uploaded .img{
+  display: block;
+}
 /* Add a subtle shadow or icon for image preview */
 .uploaded-image::after {
   content: '\f03e'; /* Unicode for FontAwesome image icon */

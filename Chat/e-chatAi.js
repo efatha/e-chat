@@ -2,6 +2,7 @@ const msgInput = document.getElementById("message-input");
 const sendMsgBtn = document.querySelector(".send-message");
 const eChatBody = document.querySelector(".chat-body"); 
 const eFile = document.querySelector("#e-file");
+const fileUploadWrapper = document.querySelector(".file-upload-wrapper");
 
 const API_KEY = "AIzaSyBl1YM-6ZUmidqoIBByNwCxVkdrVhhf7Jk";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
@@ -108,16 +109,18 @@ eFile.addEventListener("change", () =>{
 
     const reader = new FileReader();
     reader.onload = (e) => {
+        fileUploadWrapper.querySelector("img").src = e.target.result;
+        fileUploadWrapper.classList.add("eFile-uploaded");
         const base64String = e.target.result.split(",")[1];
         // Srore file data in the userData
         userData.file = {
             data: base64String,
             mime_type: file.type
-        }
-        file.value = "";
+        };
+        eFile.value = "";
     }
     reader.readAsDataURL(file);
-})
+});
 sendMsgBtn.addEventListener("click", (e) => handleOutgoingMsg(e));
 document.querySelector("#e-file-upload").addEventListener("click", () => eFile.click());
 
