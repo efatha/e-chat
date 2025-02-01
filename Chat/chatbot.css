@@ -412,3 +412,42 @@ form .file-upload-wrapper.eFile-uploaded .img{
     transform: translate(-50%, -80%);
   }
 }
+.emoji-picker {
+  display: none;
+  position: absolute;
+  width: 250px; /* Square shape */
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  max-height: 450px;
+  overflow-y: auto;
+}
+
+.emoji-picker input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.emoji-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr); /* 10 emojis per row */
+  gap: 15px;
+  padding: 1px;
+}
+
+.emoji-item {
+  cursor: pointer;
+  font-size: 24px;
+  text-align: center;
+  padding: 5px;
+}
+
+.emoji-item:hover {
+  background: #eee;
+  border-radius: 5px;
+}
