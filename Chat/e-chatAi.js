@@ -32,7 +32,7 @@ const generateEchatResponse = async (incomingMsgDiv) => {
    if (userData.file.data) {
        parts.push({ inline_data: userData.file });
    }
-   
+
    eChatMemory.push({
        role: "user",
        parts: parts
@@ -85,7 +85,7 @@ const handleOutgoingMsg = (e) => {
     eChatBody.scrollTo({ top: eChatBody.scrollHeight, behavior: "smooth" });
     // Simulate bot response with indicator after a delay
     setTimeout(() => {
-        const msgContent = `<img class="bot-avatar" src="/icon/artificial-intelligence.gif" alt="">
+        const msgContent = `<img class="bot-avatar" src="icon/artificial-intelligence.gif" alt="">
                <div class="message-text">
                    <div class="thinking-indicator">
                        <div class="dot"></div>
