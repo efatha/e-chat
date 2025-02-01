@@ -2,7 +2,7 @@ var wrapper = document.querySelector(".wrapper .form");
 Name = document.querySelector(".inpName");
 Email = document.querySelector(".inpEmail");
 btn = document.querySelector("button");
-const containerElement = document.querySelector(".new");
+const containerElement = document.querySelector(".new"); // Message in the auto complete text
 
 
 btn.addEventListener("click", () => {
@@ -19,7 +19,7 @@ const forUser = document.getElementById("efa-chatMessage");
   forUser.innerHTML = `<h3 class="hello"> Warm Welcome ${userName}!</h3><br>
   <p class="thanks">thanks for signing</p>
   <button id="newPage">
-    <a href="Chat/e-Chat.html?name=${userName}"class="herebtn">click here<a>
+    <a href="Chat/e-Chat.html?name=${userName}" class="herebtn">click here<a>
   </button>`
   // Auto text effect animation
 let isSearchActive = false; // This variable Controls flag for auto text effect

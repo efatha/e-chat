@@ -4,11 +4,6 @@ const eChatBody = document.querySelector(".chat-body");
 const eFile = document.querySelector("#e-file");
 const fileUploadWrapper = document.querySelector(".file-upload-wrapper");
 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const userName = urlParams.get('name');
-const toogleUserName = document.querySelector(".iconUser");
-toogleUserName.textContent = `${userName}`;
 
 const API_KEY = "AIzaSyBl1YM-6ZUmidqoIBByNwCxVkdrVhhf7Jk";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
