@@ -28,10 +28,15 @@ const createMsgElement = (content, classes) => {
 // Generate e-chat response using API
 const generateEchatResponse = async (incomingMsgDiv) => {
    const msgElement = incomingMsgDiv.querySelector(".message-text"); 
+   let parts = [{ text: userData.message }];
+   if (userData.file.data) {
+       parts.push({ inline_data: userData.file });
+   }
+   
    eChatMemory.push({
-    role: "user",
-    parts: [{text: userData.message}, ... (userData.file.data ? [{ inline_data: userData.file}] : [])]
-});
+       role: "user",
+       parts: parts
+   });
    const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
