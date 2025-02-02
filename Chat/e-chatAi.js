@@ -51,9 +51,8 @@ const generateEchatResponse = async (incomingMsgDiv) => {
         if (!response.ok) throw new Error(data.error.message);
 
         // Check if the user asked about Efatha Rutakaza
-        if (userData.message.toLowerCase().includes("who is efatha rutakaza")) {
-            const efathaInfo = `
-                Efatha Rutakaza is a talented developer known for creating e-Chat, an advanced AI chatbot designed to assist with research and problem-solving. 
+        if (userData.message.toLowerCase().includes("who is efatha rutakaza") || userData.message.toLowerCase().includes("efatha rutakaza")) {
+            const efathaInfo = `Efatha Rutakaza is a talented developer known for creating e-Chat, an advanced AI chatbot designed to assist with research and problem-solving. 
                 His work leverages cutting-edge AI technologies to provide dynamic, context-aware, and highly accurate interactions. 
                 e-Chat is used for academic inquiries, technical problem-solving, and general knowledge exploration, offering reliable and precise responses.
 
