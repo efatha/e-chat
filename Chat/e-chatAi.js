@@ -27,48 +27,77 @@ const createMsgElement = (content, classes) => {
 
 // Generate e-chat response using API
 const generateEchatResponse = async (incomingMsgDiv) => {
-   const msgElement = incomingMsgDiv.querySelector(".message-text"); 
-   let parts = [{ text: userData.message }];
-   if (userData.file.data) {
-       parts.push({ inline_data: userData.file });
-   }
+    const msgElement = incomingMsgDiv.querySelector(".message-text"); 
+    let parts = [{ text: userData.message }];
+    if (userData.file.data) {
+        parts.push({ inline_data: userData.file });
+    }
 
-   eChatMemory.push({
-       role: "user",
-       parts: parts
-   });
-   const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
-        contents: eChatMemory
-      })
-   }
-   try {
-    // Fetch data
-     const response = await fetch(API_URL, requestOptions);
-     const data = await response.json();
-     if(!response.ok) throw new Error(data.error.message);
-     console.log(data);
-    // Extract and display e-chat text response
-     const apiTextResponse = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1").trim();
-     msgElement.innerText = apiTextResponse;
-// Add e-chat response from its memory
-     eChatMemory.push({
-        role: "model",
-        parts: [{text: apiTextResponse}]
+    eChatMemory.push({
+        role: "user",
+        parts: parts
     });
-   } catch(error){
-    console.log(error);
-    msgElement.innerText = error.message;
-    msgElement.style.color="pink"
-   }
-   finally{
-    userData.file = {};
-    incomingMsgDiv.classList.remove('thinking');
-    eChatBody.scrollTo({ top: eChatBody.scrollHeight, behavior: "smooth" });
-   }
-}
+
+    const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contents: eChatMemory })
+    };
+
+    try {
+        // Fetch data from the API
+        const response = await fetch(API_URL, requestOptions);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error.message);
+
+        // Check if the user asked about Efatha Rutakaza
+        if (userData.message.toLowerCase().includes("who is efatha rutakaza")) {
+            const efathaInfo = `
+                Efatha Rutakaza is a talented developer known for creating e-Chat, an advanced AI chatbot designed to assist with research and problem-solving. 
+                His work leverages cutting-edge AI technologies to provide dynamic, context-aware, and highly accurate interactions. 
+                e-Chat is used for academic inquiries, technical problem-solving, and general knowledge exploration, offering reliable and precise responses.
+
+                Efatha has a passion for AI and machine learning, and his contributions have been recognized for their efficiency and precision in addressing complex research challenges.
+
+                Would you like to know more about his projects or contributions?
+            `;
+            // Display the response about Efatha Rutakaza
+            msgElement.innerText = efathaInfo;
+        } 
+        // Check if the user mentioned the creator or developer
+        else if (userData.message.toLowerCase().includes("e-chat") || userData.message.toLowerCase().includes("developer of this")) {
+            const creatorMessage = `e-Chat is developed by Efatha Rutakaza, a skilled developer with expertise in artificial intelligence and software engineering.
+                Efatha created e-Chat using the latest AI technologies to help users with research, problem-solving, and general knowledge.
+
+                His goal was to build a chatbot that understands and responds accurately to your needs. e-Chat is designed to provide useful, reliable information, and it continues to improve over time.
+
+                Efatha is passionate about AI and works to make sure e-Chat stays innovative and effective for all users.
+                Thank you for supporting this project – it helps us make e-Chat better every day!
+            `;
+            msgElement.innerText = creatorMessage;
+        } else {
+            // Extract and display e-chat text response from the API
+            const apiTextResponse = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1").trim();
+            msgElement.innerText = apiTextResponse;
+        }
+
+        // Add e-chat response to its memory
+        eChatMemory.push({
+            role: "model",
+            parts: [{ text: msgElement.innerText }]
+        });
+    } catch (error) {
+        console.log(error);
+        msgElement.innerText = error.message;
+        msgElement.style.color = "pink";
+    } finally {
+        userData.file = {};
+        incomingMsgDiv.classList.remove('thinking');
+        eChatBody.scrollTo({ top: eChatBody.scrollHeight, behavior: "smooth" });
+    }
+};
+
+ 
 
 // Handle outgoing messages
 const handleOutgoingMsg = (e) => {
