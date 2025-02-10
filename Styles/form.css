@@ -119,8 +119,7 @@ button:focus{
     color:azure;
     position: absolute;
     top:180px;
-    left:-440px;
-
+    left:-490px;
   }
 #autoText{
     color:var(--efa-gray-300);
