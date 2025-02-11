@@ -74,7 +74,16 @@ const generateEchatResponse = async (incomingMsgDiv) => {
                 Thank you for supporting this project – it helps us make e-Chat better every day!
             `;
             msgElement.innerText = creatorMessage;
-        } else {
+        } else if (userData.message.toLowerCase().includes("efatha")|| userData.message.toLowerCase().includes("Efatha Byamungu")) {
+            const efatha = `Efatha Rutakaza is a professional front-end web developer specializing in user-friendly, interactive, and AI-powered applications. 
+                He is known for his expertise in JavaScript, React.js, Python and API integrations. One of his notable projects is e-Chat, an advanced AI-driven chatbot designed 
+                to assist users with research, problem-solving, and technical inquiries by providing context-aware, reliable responses.
+
+                In addition to his development work, Efatha is passionate about mentoring and helping aspiring developers enhance their skills in web development.
+
+                Would you like to learn more about his technical contributions or ongoing projects?`;
+            msgElement.innerText = efatha;
+        }else {
             // Extract and display e-chat text response from the API
             const apiTextResponse = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1").trim();
             msgElement.innerText = apiTextResponse;

@@ -22,7 +22,7 @@ function updateBody() {
         themeChanger.style.fill = "var(--efa-gray-400)";  
     } else {
         body.style.background = "var(--efa-background)"; // Light mode background color
-        eChatB.style.background = "var(--efa-gray-100)";
+        eChatB.style.background = "var(--efa-gray-200)";
         header2.style.background = "var(--efa-sea)";
         themeChanger.style.fill = "var(--efa-sea)";
     }
