@@ -65,7 +65,7 @@ const generateEchatResponse = async (incomingMsgDiv) => {
         } 
         // Check if the user mentioned the creator or developer
         else if (userData.message.toLowerCase().includes("e-chat") || userData.message.toLowerCase().includes("developer of this")) {
-            const creatorMessage = `e-Chat is developed by Efatha Rutakaza, a skilled developer with expertise in artificial intelligence and software engineering.
+            const creatorMessage = `e-Chat is an advanced AI chatbot developed by Efatha Rutakaza, a skilled developer with expertise in artificial intelligence and software engineering.
                 Efatha created e-Chat using the latest AI technologies to help users with research, problem-solving, and general knowledge.
 
                 His goal was to build a chatbot that understands and responds accurately to your needs. e-Chat is designed to provide useful, reliable information, and it continues to improve over time.
@@ -74,7 +74,7 @@ const generateEchatResponse = async (incomingMsgDiv) => {
                 Thank you for supporting this project – it helps us make e-Chat better every day!
             `;
             msgElement.innerText = creatorMessage;
-        } else if (userData.message.toLowerCase().includes("efatha")|| userData.message.toLowerCase().includes("Efatha Byamungu")) {
+        } else if (userData.message.toLowerCase().includes("efatha") || userData.message.toLowerCase().includes("Efatha Byamungu")) {
             const efatha = `Efatha Rutakaza is a professional front-end web developer specializing in user-friendly, interactive, and AI-powered applications. 
                 He is known for his expertise in JavaScript, React.js, Python and API integrations. One of his notable projects is e-Chat, an advanced AI-driven chatbot designed 
                 to assist users with research, problem-solving, and technical inquiries by providing context-aware, reliable responses.
@@ -83,10 +83,22 @@ const generateEchatResponse = async (incomingMsgDiv) => {
 
                 Would you like to learn more about his technical contributions or ongoing projects?`;
             msgElement.innerText = efatha;
-        }else {
+        } else {
             // Extract and display e-chat text response from the API
             const apiTextResponse = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1").trim();
             msgElement.innerText = apiTextResponse;
+        }
+
+        // Check if the message contains any code-related inquiry or format
+        if (userData.message.toLowerCase().includes("code") || userData.message.toLowerCase().includes("javascript") || 
+            userData.message.toLowerCase().includes("api") || userData.message.toLowerCase().includes("html") || 
+            userData.message.toLowerCase().includes("css") || userData.message.toLowerCase().includes("js")) {
+            // Apply special background and text color for code-related responses
+            msgElement.style.backgroundColor = "#282c34"; // Set dark background for code inquiries
+            msgElement.style.color = "#f8f8f2"; // Set light text color for code-related inquiries
+            msgElement.style.fontFamily = "monospace"; // Optional: set monospace font to mimic code formatting
+            msgElement.style.padding = "10px"; // Optional: add padding for better readability
+            msgElement.style.borderRadius = "5px"; // Optional: rounded borders
         }
 
         // Add e-chat response to its memory
