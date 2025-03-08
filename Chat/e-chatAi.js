@@ -167,7 +167,7 @@ eFile.addEventListener("change", () =>{
         fileUploadWrapper.querySelector("img").src = e.target.result;
         fileUploadWrapper.classList.add("eFile-uploaded");
         const base64String = e.target.result.split(",")[1];
-        // Srore file data in the userData
+        // Store file data in the userData
         userData.file = {
             data: base64String,
             mime_type: file.type
