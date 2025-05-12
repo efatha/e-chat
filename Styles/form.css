@@ -127,7 +127,7 @@ button:focus{
     top:200px;
     left:430px;
     font-size: 18px;
-    
+    font-family: Arial, Helvetica, sans-serif;
 }
 @media (max-width:678px) {
     #autoText{
