@@ -129,11 +129,6 @@ button:focus{
     font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
 }
-@media (max-width:678px) {
-    #autoText{
-       left:130px;
-    }
-}
 a{
     color:var(--efa-gray-800);
     text-decoration: none;
@@ -149,4 +144,47 @@ a{
     top:380px;
     right:90px;
 }
-  
+@media (max-width:678px) {
+    #autoText{
+       left:130px;
+    }
+    .container{
+        max-width:400px;
+        max-height:230px;
+    }
+    .wrapper{
+        width:380px;
+        height:234px;
+        margin-left: 40px;
+        margin-bottom: 40px;
+
+    }
+    .efatha-chat{
+        top:100px;
+    }
+    label{
+        margin-left: 60px;
+    }
+    input{
+        margin-left: 50px;
+        width:220px;
+        margin-bottom: -10px;
+        height:34px;
+    }
+    button{
+        top:0px;
+        right:-10px;
+    }
+    .hello{
+        color:azure;
+        position: absolute;
+        top:180px;
+        left:-400px;
+      }
+    #autoText{
+        top:200px;
+        left:145px;
+        max-width: 358px;
+    }
+}  
+
