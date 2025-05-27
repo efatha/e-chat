@@ -25,7 +25,7 @@ const forUser = document.getElementById("efa-chatMessage");
 let isSearchActive = false; // This variable Controls flag for auto text effect
 let efaChatIndex = 1;
 let characterIndex = 1;
-  const efaChatUsers = ["0", `${userName}, confirm that this is your email : <br>${userEmail} by clicking <br>the button in the border...`];
+  const efaChatUsers = ["0", `${userName}, confirm that this is <br>your email : <br>${userEmail} by clicking <br>the button in the border...`];
   function updateText() {
       if (!isSearchActive) {
           containerElement.innerHTML = `<h2 id="autoText">Hello ${efaChatUsers[efaChatIndex].slice(0, characterIndex)}</h2>`;
