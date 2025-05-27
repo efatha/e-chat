@@ -9,3 +9,12 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     startRecordBtn.disabled = true;
     startRecordBtn.title = "Voice input not supported on this browser.";
 }
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+
+// Set language to English
+recognition.lang = 'en-US';
+
+// We only want one command at a time
+recognition.continuous = false;
+recognition.interimResults = false;
