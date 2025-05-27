@@ -383,6 +383,17 @@ form .file-upload-wrapper.eFile-uploaded .img{
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+#start-record {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+}
+#start-record:hover {
+  color: var(--efa-code-color);
+}
+
 .tooltip {
   position: absolute;
   color: var(--efa-gray-700);
