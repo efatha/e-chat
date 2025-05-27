@@ -18,3 +18,8 @@ recognition.lang = 'en-US';
 // We only want one command at a time
 recognition.continuous = false;
 recognition.interimResults = false;
+// This feature helps the e-chat to start listening
+startRecordBtn.addEventListener('click', () => {
+    recognition.start(); // Start listening
+    startRecordBtn.textContent = "🎙️ Listening..."; // Feedback
+});
