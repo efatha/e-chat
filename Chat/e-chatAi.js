@@ -83,7 +83,20 @@ const generateEchatResponse = async (incomingMsgDiv) => {
 
                 Would you like to learn more about his technical contributions or ongoing projects?`;
             msgElement.innerText = efatha;
-        } else {
+        } 
+        else if(userData.message.toLowerCase().includes("More about him") || userData.message.toLowerCase().includes("more") || userData.message.toLowerCase().includes("his work") ){
+            const moreAboutEfatha = `Efatha Rutakaza is a passionate front-end web developer from Bukavu, Democratic Republic of Congo, who crafts digital experiences with purpose and precision. With deep expertise in JavaScript, HTML, CSS, and React.js, he specializes in building responsive, interactive, and AI-enhanced applications that not only function seamlessly but also feel intuitive and inspiring.
+            He is best known as the creator of e-Chat, an intelligent AI chatbot designed to support users in research, technical problem-solving, and meaningful dialogue. e-Chat reflects Efatha’s commitment to designing tools that are both technically sound and deeply human in their usefulness.
+            Efatha’s journey as a developer is driven by more than code—it’s shaped by compassion, curiosity, and a calling to uplift others. As a dedicated mentor, he empowers aspiring developers by offering project-based challenges, tailored feedback, and practical guidance. His mentoring style is rooted in patience, encouragement, and a genuine belief in people’s potential.
+            Outside the tech world, Efatha expresses his creativity through music, with the guitar being his favorite instrument. For him, music is more than a hobby—it's a space for reflection, emotional clarity, and artistic balance. Just like in his coding, his approach to music is thoughtful and expressive.
+            His life is also enriched by reading, Bible study, blogging, and playing strategy games—activities that strengthen his mind, deepen his values, and fuel his creativity. Efatha believes that great design starts with empathy and intention, and he brings that mindset to every project he builds.
+            Whether he’s refining user interfaces, mentoring new talent, or strumming his guitar, Efatha works with a spirit of excellence, purpose, and heart.
+
+            Would you like to explore some of his projects or discover the philosophy behind his work?`
+           msgElement.innerText = moreAboutEfatha;
+
+        } 
+        else {
             // Extract and display e-chat text response from the API
             const apiTextResponse = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1").trim();
             msgElement.innerText = apiTextResponse;
