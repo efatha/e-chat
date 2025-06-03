@@ -12,5 +12,5 @@ services:
   buildCommand: pip install -r requirements.txt
   startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
   autoDeployTrigger: commit
-  rootDir: e_chat_db/Production
+  rootDir: backend
 version: "1"
