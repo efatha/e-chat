@@ -1,0 +1,16 @@
+# Exported from Render on 2025-06-03T11:56:49Z
+services:
+- type: web
+  name: e-chat
+  runtime: python
+  repo: https://github.com/efatha/e-chat
+  plan: free
+  envVars:
+  - key: DATABASE_URL
+    sync: false
+  region: oregon
+  buildCommand: pip install -r requirements.txt
+  startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+  autoDeployTrigger: commit
+  rootDir: e_chat_db/Production
+version: "1"
