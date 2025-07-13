@@ -529,3 +529,15 @@ form .file-upload-wrapper.eFile-uploaded .img{
       transform: translateX(0);
   }
 }
+
+/* Responsive design */
+@media (max-width:678px) {
+ article{
+  padding: 0px;
+  margin: 15px auto;
+ }
+ .chatbot-popup{
+  max-width:300px;
+  margin-top: 100px auto;
+ }
+}
