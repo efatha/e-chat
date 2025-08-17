@@ -64,8 +64,8 @@ const generateEchatResponse = async (incomingMsgDiv) => {
             msgElement.innerText = efathaInfo;
         } 
         // Check if the user mentioned the creator or developer
-        else if (userData.message.toLowerCase().includes("e-chat") || userData.message.toLowerCase().includes("developer of this")) {
-            const creatorMessage = `e-Chat is an advanced AI chatbot developed by Efatha Rutakaza, a skilled developer with expertise in artificial intelligence and software engineering.
+        else if (userData.message.toLowerCase().includes("e-chat") || userData.message.toLowerCase().includes("developer of this") || userData.message.toLowerCase().includes("who created you") || userData.message.toLowerCase().includes("who are you")) {
+            const creatorMessage = `I am an advanced AI chatbot developed by Efatha Rutakaza, a skilled developer with expertise in artificial intelligence and software engineering.
                 Efatha created e-Chat using the latest AI technologies to help users with research, problem-solving, and general knowledge.
 
                 His goal was to build a chatbot that understands and responds accurately to your needs. e-Chat is designed to provide useful, reliable information, and it continues to improve over time.
@@ -74,7 +74,7 @@ const generateEchatResponse = async (incomingMsgDiv) => {
                 Thank you for supporting this project – it helps us make e-Chat better every day!
             `;
             msgElement.innerText = creatorMessage;
-        } else if (userData.message.toLowerCase().includes("efatha") || userData.message.toLowerCase().includes("Efatha Byamungu")) {
+        } else if (userData.message.toLowerCase().includes("efatha") || userData.message.toLowerCase().includes("Efatha Rutakaza") || userData.message.toLowerCase().includes("who is efatha")) {
             const efatha = `Efatha Rutakaza is a professional front-end web developer specializing in user-friendly, interactive, and AI-powered applications. 
                 He is known for his expertise in JavaScript, React.js, Python and API integrations. One of his notable projects is e-Chat, an advanced AI-driven chatbot designed 
                 to assist users with research, problem-solving, and technical inquiries by providing context-aware, reliable responses.
@@ -84,7 +84,7 @@ const generateEchatResponse = async (incomingMsgDiv) => {
                 Would you like to learn more about his technical contributions or ongoing projects?`;
             msgElement.innerText = efatha;
         } 
-        else if(userData.message.toLowerCase().includes("More about him") || userData.message.toLowerCase().includes("More about Efatha") || userData.message.toLowerCase().includes("Who is Efatha") ){
+        else if(userData.message.toLowerCase().includes("tell me about your creator") ){
             const moreAboutEfatha = `Efatha Rutakaza is a passionate front-end web developer from Bukavu, Democratic Republic of Congo, who crafts digital experiences with purpose and precision. With deep expertise in JavaScript, HTML, CSS, and React.js, he specializes in building responsive, interactive, and AI-enhanced applications that not only function seamlessly but also feel intuitive and inspiring.
             He is best known as the creator of e-Chat, an intelligent AI chatbot designed to support users in research, technical problem-solving, and meaningful dialogue. e-Chat reflects Efatha’s commitment to designing tools that are both technically sound and deeply human in their usefulness.
             Efatha’s journey as a developer is driven by more than code—it’s shaped by compassion, curiosity, and a calling to uplift others. As a dedicated mentor, he empowers aspiring developers by offering project-based challenges, tailored feedback, and practical guidance. His mentoring style is rooted in patience, encouragement, and a genuine belief in people’s potential.
