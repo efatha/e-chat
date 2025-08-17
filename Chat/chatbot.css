@@ -95,7 +95,10 @@ body{
 
 .header-info .chatbot-logo img{
  height:40px; 
- width:45px;
+ width:40px;
+ object-fit: cover;
+ border-radius: 50%;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
  padding: 6px;
  flex-shrink: 0;
  background:var(--efa-code-color);
