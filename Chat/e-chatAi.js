@@ -5,7 +5,7 @@ const eFile = document.querySelector("#e-file");
 const fileUploadWrapper = document.querySelector(".file-upload-wrapper");
 
 
-const API_KEY = "AIzaSyAfsU93kHAoJ9dGldrZQqXBybYxUodNz5c";
+const API_KEY = "AIzaSyAnbon2K6fxs_xTR3P_Q3NhextjDJCmC04";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
 const userData = {
