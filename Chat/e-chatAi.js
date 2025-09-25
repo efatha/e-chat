@@ -6,7 +6,7 @@ const fileUploadWrapper = document.querySelector(".file-upload-wrapper");
 
 
 const API_KEY = "AIzaSyAnbon2K6fxs_xTR3P_Q3NhextjDJCmC04";
-const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
 
 const userData = {
     message: null,
