@@ -1,8 +1,43 @@
-/* ================================
-   IMPORT PRIVATE KNOWLEDGE
-   (KEEP IN .gitignore)
-================================ */
-import { PRIVATE_KNOWLEDGE } from '../backend/privateData.js';
+let PRIVATE_KNOWLEDGE = "";
+
+// Fetch private knowledge from backend
+async function loadPrivateKnowledge() {
+    try {
+        const res = await fetch("http://localhost:3000/getPrivateKnowledge");
+        const data = await res.json();
+        PRIVATE_KNOWLEDGE = data.PRIVATE_KNOWLEDGE;
+        initChat(); // initialize chat only after private knowledge is loaded
+    } catch (err) {
+        console.error("Failed to load private knowledge:", err);
+        PRIVATE_KNOWLEDGE = "⚠️ Private knowledge unavailable.";
+        initChat();
+    }
+}
+
+// Wrap the existing chat initialization inside this function
+function initChat() {
+    const knowledgeBase = `
+${PRIVATE_KNOWLEDGE}
+
+// === CUSTOM KNOWLEDGE ADDITION SPACE ===
+`;
+
+    const SYSTEM_PROMPT = `
+You are e-Chat, created by Efatha Rutakaza.
+
+Use the following knowledge:
+
+${knowledgeBase}
+
+Be professional, helpful, and accurate.
+`;
+
+    // ... rest of your e-chatAI.js code
+    // Use SYSTEM_PROMPT and eChatMemory as before
+}
+
+// Start everything
+loadPrivateKnowledge();
 
 /* ================================
    LOCAL TRAINED DATA (KNOWLEDGE)
