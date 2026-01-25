@@ -1,3 +1,34 @@
+/* ================================
+   IMPORT PRIVATE KNOWLEDGE
+   (KEEP IN .gitignore)
+================================ */
+import { PRIVATE_KNOWLEDGE } from '../backend/privateData.js';
+
+/* ================================
+   LOCAL TRAINED DATA (KNOWLEDGE)
+   CUSTOM KNOWLEDGE ADDITION SPACE
+================================ */
+const knowledgeBase = `
+${PRIVATE_KNOWLEDGE}
+
+// === CUSTOM KNOWLEDGE ADDITION SPACE ===
+// Add more FAQs or context below without touching PRIVATE_KNOWLEDGE
+`;
+
+
+/* ================================
+   SYSTEM PROMPT
+================================ */
+const SYSTEM_PROMPT = `
+You are e-Chat, created by Efatha Rutakaza.
+
+Use the following knowledge:
+
+${knowledgeBase}
+
+Be professional, helpful, and accurate.
+`;
+
 const msgInput = document.getElementById("message-input");
 const sendMsgBtn = document.querySelector(".send-message");
 const eChatBody = document.querySelector(".chat-body"); 
@@ -5,7 +36,7 @@ const eFile = document.querySelector("#e-file");
 const fileUploadWrapper = document.querySelector(".file-upload-wrapper");
 
 
-const API_KEY = "AIzaSyChBizygQN2eEb-A6BvkOMPmPLkQMqB2D0";
+const API_KEY = "AIzaSyBZEZt-qP4KXTvIVIWhOUs968iCN4xYZUA";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
 
 const userData = {
@@ -15,14 +46,49 @@ const userData = {
         mime_type: null
     }
 }
-
-const eChatMemory = []
-
+// No change needed; memory logic stays intact
+const eChatMemory = [
+  {
+    role: "user",
+    parts: [{ text: "SYSTEM INSTRUCTION:\n" + SYSTEM_PROMPT }]
+  }
+];
 const createMsgElement = (content, classes) => {
     const div = document.createElement("div");
     div.classList.add("message", classes);
     div.innerHTML = content;
     return div;
+}
+/* ================================
+   OFFLINE AI (FALLBACK)
+================================ */
+function getLocalResponse(message) {
+  const text = message.toLowerCase();
+
+  // === RESERVED: Add custom fallback responses here
+  // Example: text.includes("project") => "⚠️ Offline Mode: This project is ..."
+  
+  if (text.includes("efatha")) return PRIVATE_KNOWLEDGE;
+  if (text.includes("Efatha Rutakaza")) return `Efatha Rutakaza is a talented developer known for creating e-Chat, an advanced AI chatbot designed to assist with research and problem-solving. 
+                His work leverages cutting-edge AI technologies to provide dynamic, context-aware, and highly accurate interactions. 
+e-Chat is used for academic inquiries, technical problem-solving, and general knowledge exploration, offering reliable and precise responses.
+
+                Efatha has a passion for AI and machine learning, and his contributions have been recognized for their efficiency and precision in addressing complex research challenges.
+
+                Would you like to know more about his projects or contributions?`;
+                if (text.includes("who are you?")) return `I am an advanced AI chatbot developed by Efatha Rutakaza, a skilled developer with expertise in artificial intelligence and software engineering.
+                Efatha created e-Chat using the latest AI technologies to help users with research, problem-solving, and general knowledge.
+
+                His goal was to build a chatbot that understands and responds accurately to your needs. e-Chat is designed to provide useful, reliable information, and it continues to improve over time.
+
+                Efatha is passionate about AI and works to make sure e-Chat stays innovative and effective for all users.
+                Thank you for supporting this project – it helps us make e-Chat better every day!`;
+  
+  if (text.includes("e-chat")) return " e-Chat is an AI-powered chatbot built for learning, coding, and research developed by Efatha";
+  if (text.includes("portfolio")) return `⚠️ Offline Mode: Efatha's portfolio is at https://efatha.github.io/my-portofolio`;
+  if (text.includes("javascript") || text.includes("code")) return "⚠️ Offline Mode: I can help you with JavaScript, APIs, and web development.";
+  
+  return "⚠️ Offline Mode: I am currently offline, but I can still help using my local knowledge.";
 }
 
 // Generate e-chat response using API
@@ -120,14 +186,22 @@ const generateEchatResponse = async (incomingMsgDiv) => {
             parts: [{ text: msgElement.innerText }]
         });
     } catch (error) {
-        console.log(error);
-        msgElement.innerText = error.message;
-        msgElement.style.color = "pink";
-    } finally {
-        userData.file = {};
-        incomingMsgDiv.classList.remove('thinking');
-        eChatBody.scrollTo({ top: eChatBody.scrollHeight, behavior: "smooth" });
-    }
+  console.warn("API failed, switching to Offline Mode");
+  const localReply = getLocalResponse(userData.message);
+  msgElement.innerText = localReply;
+  msgElement.style.backgroundColor = "#444";
+  msgElement.style.color = "#fff";
+
+  // Save fallback reply to memory
+  eChatMemory.push({
+    role: "model",
+    parts: [{ text: localReply }]
+  });
+} finally {
+  userData.file = {};
+  incomingMsgDiv.classList.remove('thinking');
+  eChatBody.scrollTo({ top: eChatBody.scrollHeight, behavior: "smooth" });
+}
 };
 
  
