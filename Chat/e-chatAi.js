@@ -1,43 +1,8 @@
-let PRIVATE_KNOWLEDGE = "";
-
-// Fetch private knowledge from backend
-async function loadPrivateKnowledge() {
-    try {
-        const res = await fetch("http://localhost:3000/getPrivateKnowledge");
-        const data = await res.json();
-        PRIVATE_KNOWLEDGE = data.PRIVATE_KNOWLEDGE;
-        initChat(); // initialize chat only after private knowledge is loaded
-    } catch (err) {
-        console.error("Failed to load private knowledge:", err);
-        PRIVATE_KNOWLEDGE = "⚠️ Private knowledge unavailable.";
-        initChat();
-    }
-}
-
-// Wrap the existing chat initialization inside this function
-function initChat() {
-    const knowledgeBase = `
-${PRIVATE_KNOWLEDGE}
-
-// === CUSTOM KNOWLEDGE ADDITION SPACE ===
-`;
-
-    const SYSTEM_PROMPT = `
-You are e-Chat, created by Efatha Rutakaza.
-
-Use the following knowledge:
-
-${knowledgeBase}
-
-Be professional, helpful, and accurate.
-`;
-
-    // ... rest of your e-chatAI.js code
-    // Use SYSTEM_PROMPT and eChatMemory as before
-}
-
-// Start everything
-loadPrivateKnowledge();
+/* ================================
+   IMPORT PRIVATE KNOWLEDGE
+   (KEEP IN .gitignore)
+================================ */
+import { PRIVATE_KNOWLEDGE } from '../backend/privateData.js';
 
 /* ================================
    LOCAL TRAINED DATA (KNOWLEDGE)
@@ -88,6 +53,9 @@ const eChatMemory = [
     parts: [{ text: "SYSTEM INSTRUCTION:\n" + SYSTEM_PROMPT }]
   }
 ];
+
+// === PLACEHOLDER: Add persistent memory or load from local storage if needed
+
 const createMsgElement = (content, classes) => {
     const div = document.createElement("div");
     div.classList.add("message", classes);
@@ -102,24 +70,25 @@ function getLocalResponse(message) {
 
   // === RESERVED: Add custom fallback responses here
   // Example: text.includes("project") => "⚠️ Offline Mode: This project is ..."
-  
+// Initialized the e-chat math brain for full operation
+const expression = text.match(/\d+\.?\d*\s*[\+\-\*\/%]\s*\d+\.?\d*/); //try to find a math expressions
+if (expression) {
+  try {
+    let calc = expression[0].replace('%', '*0.01*'); //convert percentage to multiplication(Math Format)
+    const result = eval(calc); //Calculate the result using eval (evl reads math strings)
+    if (result !== undefined) return `${result}`; //if calculation successful, return result
+  } catch {} //test to catch any errors silently
+}
+// Fallback: simple add
+const nums = text.match(/\d+\.?\d*/g) || []; //extract numbers from text
+
+if (nums.length >= 2) {
+  const sum = Number(nums[0]) + Number(nums[1]);
+  return `${sum}`;
+}
   if (text.includes("efatha")) return PRIVATE_KNOWLEDGE;
-  if (text.includes("Efatha Rutakaza")) return `Efatha Rutakaza is a talented developer known for creating e-Chat, an advanced AI chatbot designed to assist with research and problem-solving. 
-                His work leverages cutting-edge AI technologies to provide dynamic, context-aware, and highly accurate interactions. 
-e-Chat is used for academic inquiries, technical problem-solving, and general knowledge exploration, offering reliable and precise responses.
-
-                Efatha has a passion for AI and machine learning, and his contributions have been recognized for their efficiency and precision in addressing complex research challenges.
-
-                Would you like to know more about his projects or contributions?`;
-                if (text.includes("who are you?")) return `I am an advanced AI chatbot developed by Efatha Rutakaza, a skilled developer with expertise in artificial intelligence and software engineering.
-                Efatha created e-Chat using the latest AI technologies to help users with research, problem-solving, and general knowledge.
-
-                His goal was to build a chatbot that understands and responds accurately to your needs. e-Chat is designed to provide useful, reliable information, and it continues to improve over time.
-
-                Efatha is passionate about AI and works to make sure e-Chat stays innovative and effective for all users.
-                Thank you for supporting this project – it helps us make e-Chat better every day!`;
-  
   if (text.includes("e-chat")) return " e-Chat is an AI-powered chatbot built for learning, coding, and research developed by Efatha";
+  if (text.includes("python")) return `Python is a versatile programming language known for its readability and wide range of applications, including web development, data analysis, artificial intelligence, and scientific computing. It supports multiple programming paradigms and has a large standard library.`;
   if (text.includes("portfolio")) return `⚠️ Offline Mode: Efatha's portfolio is at https://efatha.github.io/my-portofolio`;
   if (text.includes("javascript") || text.includes("code")) return "⚠️ Offline Mode: I can help you with JavaScript, APIs, and web development.";
   
