@@ -69,8 +69,12 @@ function getLocalResponse(message) {
   const text = message.toLowerCase();
 
   // === RESERVED: Add custom fallback responses here
-  // Example: text.includes("project") => "⚠️ Offline Mode: This project is ..."
-// Initialized the e-chat math brain for full operation
+  if (text.includes("efatha")) return PRIVATE_KNOWLEDGE;
+  if (text.includes("e-chat")) return " e-Chat is an AI-powered chatbot built for learning, coding, and research developed by Efatha";
+  if (text.includes("python")) return `Python is a versatile programming language known for its readability and wide range of applications, including web development, data analysis, artificial intelligence, and scientific computing. It supports multiple programming paradigms and has a large standard library.`;
+  if (text.includes("portfolio")) return `⚠️ Offline Mode: Efatha's portfolio is at https://efatha.github.io/my-portofolio`;
+  if (text.includes("javascript") || text.includes("code")) return "⚠️ Offline Mode: I can help you with JavaScript, APIs, and web development.";
+  // Initialized the e-chat math brain for full operation
 const expression = text.match(/\d+\.?\d*\s*[\+\-\*\/%]\s*\d+\.?\d*/); //try to find a math expressions
 if (expression) {
   try {
@@ -86,12 +90,6 @@ if (nums.length >= 2) {
   const sum = Number(nums[0]) + Number(nums[1]);
   return `${sum}`;
 }
-  if (text.includes("efatha")) return PRIVATE_KNOWLEDGE;
-  if (text.includes("e-chat")) return " e-Chat is an AI-powered chatbot built for learning, coding, and research developed by Efatha";
-  if (text.includes("python")) return `Python is a versatile programming language known for its readability and wide range of applications, including web development, data analysis, artificial intelligence, and scientific computing. It supports multiple programming paradigms and has a large standard library.`;
-  if (text.includes("portfolio")) return `⚠️ Offline Mode: Efatha's portfolio is at https://efatha.github.io/my-portofolio`;
-  if (text.includes("javascript") || text.includes("code")) return "⚠️ Offline Mode: I can help you with JavaScript, APIs, and web development.";
-  
   return "⚠️ Offline Mode: I am currently offline, but I can still help using my local knowledge.";
 }
 
