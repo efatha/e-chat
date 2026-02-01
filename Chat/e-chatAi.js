@@ -75,24 +75,49 @@ function getLocalResponse(message) {
   if (text.includes("portfolio")) return `⚠️ Offline Mode: Efatha's portfolio is at https://efatha.github.io/my-portofolio`;
   if (text.includes("javascript") || text.includes("code")) return "⚠️ Offline Mode: I can help you with JavaScript, APIs, and web development.";
   // Initialized the e-chat math brain for full operation
-const expression = text.match(/\d+\.?\d*\s*[\+\-\*\/%]\s*\d+\.?\d*/); //try to find a math expressions
-if (expression) {
-  try {
-    let calc = expression[0].replace('%', '*0.01*'); //convert percentage to multiplication(Math Format)
-    const result = eval(calc); //Calculate the result using eval (evl reads math strings)
-    if (result !== undefined) return `${result}`; //if calculation successful, return result
-  } catch {} //test to catch any errors silently
-}
-// Fallback: simple add
-const nums = text.match(/\d+\.?\d*/g) || []; //extract numbers from text
+  // --- SAFE MATH CALCULATION ---
+    // Matches numbers (integers/floats) and operators (+ - * / %)
+    const expressionMatch = text.match(/[\d\.]+(?:\s*[%\+\-\*\/]\s*[\d\.]+)+/);
+    if (expressionMatch) {
+        try {
+            let expr = expressionMatch[0];
+            
+            // Replace percentages with their decimal equivalents
+            expr = expr.replace(/(\d+(\.\d+)?)%/g, (_, num) => `(${num}*0.01)`);
 
-if (nums.length >= 2) {
-  const sum = Number(nums[0]) + Number(nums[1]);
-  return `${sum}`;
-}
-  return "⚠️ Offline Mode: I am currently offline, but I can still help using my local knowledge.";
+            // Safe calculation function
+            const result = safeCalc(expr);
+            if (result !== undefined) return `${result}`;
+        } catch (err) {
+            console.warn("Math parse error:", err);
+        }
+    }
+
+    // --- FALLBACK: simple sum of first two numbers ---
+    const nums = text.match(/\d+\.?\d*/g) || [];
+    if (nums.length >= 2) {
+        const sum = Number(nums[0]) + Number(nums[1]);
+        return `${sum}`;
+    }
+
+    // --- DEFAULT FALLBACK ---
+    return "⚠️ Offline Mode: I am currently offline, but I can still help using my local knowledge.";
 }
 
+/* ================================
+   SAFE CALCULATION FUNCTION
+================================ */
+function safeCalc(expr) {
+    // Tokenize numbers and operators
+    const tokens = expr.match(/(\d+(\.\d+)?|[%\+\-\*\/\(\)])/g);
+    if (!tokens) return undefined;
+
+    // Convert % to decimal already done, now evaluate safely
+    // Using Function constructor to compute math safely without eval
+    // Only allow math expressions
+    const sanitizedExpr = tokens.join(' ');
+    return Function(`"use strict"; return (${sanitizedExpr})`)();
+}
 // Generate e-chat response using API
 const generateEchatResponse = async (incomingMsgDiv) => {
     const msgElement = incomingMsgDiv.querySelector(".message-text"); 
