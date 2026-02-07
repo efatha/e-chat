@@ -65,46 +65,100 @@ const createMsgElement = (content, classes) => {
 /* ================================
    OFFLINE AI (FALLBACK)
 ================================ */
+/* ================================
+   OFFLINE / FALLBACK AI RESPONSE
+   (Safe for GitHub)
+================================ */
+
 function getLocalResponse(message) {
-    const text = message.toLowerCase().trim();
 
-    // 1️⃣ Keywords first
-    if (text.includes("efatha")) return PRIVATE_KNOWLEDGE;
-    if (text.includes("e-chat")) return "e-Chat is an AI-powered chatbot built by Efatha";
-    if (text.includes("python")) return "Python is a versatile programming language.";
-    if (text.includes("portfolio")) return "⚠️ Offline Mode: Efatha's portfolio: https://efatha.github.io/my-portofolio";
-    if (text.includes("javascript") || text.includes("code")) return "⚠️ Offline Mode: I can help with JavaScript.";
+  if (!message) {
+    return "⚠️ No message received.";
+  }
 
-//     // 2️⃣ Safe math calculation
-//     if (/[\d%+\-*/]/.test(text)) {           // Only calculate if text has numbers/operators
-//         const exprMatch = text.match(/[\d\.]+(\s*[%+\-*/]\s*[\d\.]+)+/);
-//         if (exprMatch) {
-//             const result = safeCalculate(exprMatch[0]);
-//             if (result !== undefined) return `${result}`;
-//         }
-//     }
+  const text = message.toLowerCase().trim();
 
-//     // 3️⃣ Fallback: sum first two numbers
-//     const nums = text.match(/\d+\.?\d*/g) || [];
-//     if (nums.length >= 2) return `${Number(nums[0]) + Number(nums[1])}`;
 
-//     // 4️⃣ Default offline response
-//     return "⚠️ Offline Mode: I am currently offline, but I can still help using my local knowledge.";
-// }
+  /* =========================
+     BASIC KNOWLEDGE
+  ========================= */
 
-// /* ================================
-//    SAFE CALCULATION FUNCTION
-// ================================ */
-// function safeCalc(expr) {
-//     // Tokenize numbers and operators
-//     const tokens = expr.match(/(\d+(\.\d+)?|[%\+\-\*\/\(\)])/g);
-//     if (!tokens) return undefined;
+  if (text.includes("efatha")) {
+    return "Efatha Rutakaza is the creator of e-Chat.";
+  }
 
-//     // Convert % to decimal already done, now evaluate safely
-//     // Using Function constructor to compute math safely without eval
-//     // Only allow math expressions
-//     const sanitizedExpr = tokens.join(' ');
-//     return Function(`"use strict"; return (${sanitizedExpr})`)();
+  if (text.includes("e-chat")) {
+    return "e-Chat is an AI-powered chatbot built by Efatha.";
+  }
+
+  if (text.includes("python")) {
+    return "Python is a versatile programming language.";
+  }
+
+  if (text.includes("portfolio")) {
+    return "Efatha's portfolio: https://efatha.github.io/my-portofolio";
+  }
+
+  if (text.includes("javascript") || text.includes("code")) {
+    return "I can help you with JavaScript and coding.";
+  }
+
+
+  /* =========================
+     SAFE MATH CALCULATION
+  ========================= */
+
+  // Detect math expression: 2+3, 10*5, 8/2, 50%
+  const mathMatch = text.match(/(\d+\.?\d*)(\s*[%+\-*/]\s*)(\d+\.?\d*)/);
+
+  if (mathMatch) {
+
+    try {
+
+      let expr = mathMatch[0];
+
+      // Convert percentage (50% -> 0.5)
+      expr = expr.replace(/(\d+)%/g, "($1/100)");
+
+      // Allow only numbers and operators
+      if (/^[0-9+\-*/().\s]+$/.test(expr)) {
+
+        const result = Function(
+          `"use strict"; return (${expr})`
+        )();
+
+        if (!isNaN(result)) {
+          return `Result: ${result}`;
+        }
+      }
+
+    } catch (err) {
+      console.error("Math error:", err);
+    }
+  }
+
+
+  /* =========================
+     NUMBER FALLBACK
+  ========================= */
+
+  // If user typed: "add 3 and 5"
+  const numbers = text.match(/\d+\.?\d*/g);
+
+  if (numbers && numbers.length >= 2) {
+
+    const sum =
+      Number(numbers[0]) + Number(numbers[1]);
+
+    return `Sum: ${sum}`;
+  }
+
+
+  /* =========================
+     DEFAULT RESPONSE
+  ========================= */
+
+  return "⚠️ Offline Mode: AI is unavailable, but I’m still here to help.";
 }
 // Generate e-chat response using API
 const generateEchatResponse = async (incomingMsgDiv) => {
