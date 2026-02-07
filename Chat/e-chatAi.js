@@ -66,41 +66,29 @@ const createMsgElement = (content, classes) => {
    OFFLINE AI (FALLBACK)
 ================================ */
 function getLocalResponse(message) {
-  const text = message.toLowerCase();
+    const text = message.toLowerCase().trim();
 
-  // === RESERVED: Add custom fallback responses here
-  if (text.includes("efatha")) return PRIVATE_KNOWLEDGE;
-  if (text.includes("e-chat")) return " e-Chat is an AI-powered chatbot built for learning, coding, and research developed by Efatha";
-  if (text.includes("python")) return `Python is a versatile programming language known for its readability and wide range of applications, including web development, data analysis, artificial intelligence, and scientific computing. It supports multiple programming paradigms and has a large standard library.`;
-  if (text.includes("portfolio")) return `⚠️ Offline Mode: Efatha's portfolio is at https://efatha.github.io/my-portofolio`;
-  if (text.includes("javascript") || text.includes("code")) return "⚠️ Offline Mode: I can help you with JavaScript, APIs, and web development.";
-  // Initialized the e-chat math brain for full operation
-  // --- SAFE MATH CALCULATION ---
-    // Matches numbers (integers/floats) and operators (+ - * / %)
-    const expressionMatch = text.match(/[\d\.]+(?:\s*[%\+\-\*\/]\s*[\d\.]+)+/);
-    if (expressionMatch) {
-        try {
-            let expr = expressionMatch[0];
-            
-            // Replace percentages with their decimal equivalents
-            expr = expr.replace(/(\d+(\.\d+)?)%/g, (_, num) => `(${num}*0.01)`);
+    // 1️⃣ Keywords first
+    if (text.includes("efatha")) return PRIVATE_KNOWLEDGE;
+    if (text.includes("e-chat")) return "e-Chat is an AI-powered chatbot built by Efatha";
+    if (text.includes("python")) return "Python is a versatile programming language.";
+    if (text.includes("portfolio")) return "⚠️ Offline Mode: Efatha's portfolio: https://efatha.github.io/my-portofolio";
+    if (text.includes("javascript") || text.includes("code")) return "⚠️ Offline Mode: I can help with JavaScript.";
 
-            // Safe calculation function
-            const result = safeCalc(expr);
+    // 2️⃣ Safe math calculation
+    if (/[\d%+\-*/]/.test(text)) {           // Only calculate if text has numbers/operators
+        const exprMatch = text.match(/[\d\.]+(\s*[%+\-*/]\s*[\d\.]+)+/);
+        if (exprMatch) {
+            const result = safeCalculate(exprMatch[0]);
             if (result !== undefined) return `${result}`;
-        } catch (err) {
-            console.warn("Math parse error:", err);
         }
     }
 
-    // --- FALLBACK: simple sum of first two numbers ---
+    // 3️⃣ Fallback: sum first two numbers
     const nums = text.match(/\d+\.?\d*/g) || [];
-    if (nums.length >= 2) {
-        const sum = Number(nums[0]) + Number(nums[1]);
-        return `${sum}`;
-    }
+    if (nums.length >= 2) return `${Number(nums[0]) + Number(nums[1])}`;
 
-    // --- DEFAULT FALLBACK ---
+    // 4️⃣ Default offline response
     return "⚠️ Offline Mode: I am currently offline, but I can still help using my local knowledge.";
 }
 
