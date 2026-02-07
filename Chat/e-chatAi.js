@@ -75,36 +75,36 @@ function getLocalResponse(message) {
     if (text.includes("portfolio")) return "⚠️ Offline Mode: Efatha's portfolio: https://efatha.github.io/my-portofolio";
     if (text.includes("javascript") || text.includes("code")) return "⚠️ Offline Mode: I can help with JavaScript.";
 
-    // 2️⃣ Safe math calculation
-    if (/[\d%+\-*/]/.test(text)) {           // Only calculate if text has numbers/operators
-        const exprMatch = text.match(/[\d\.]+(\s*[%+\-*/]\s*[\d\.]+)+/);
-        if (exprMatch) {
-            const result = safeCalculate(exprMatch[0]);
-            if (result !== undefined) return `${result}`;
-        }
-    }
+//     // 2️⃣ Safe math calculation
+//     if (/[\d%+\-*/]/.test(text)) {           // Only calculate if text has numbers/operators
+//         const exprMatch = text.match(/[\d\.]+(\s*[%+\-*/]\s*[\d\.]+)+/);
+//         if (exprMatch) {
+//             const result = safeCalculate(exprMatch[0]);
+//             if (result !== undefined) return `${result}`;
+//         }
+//     }
 
-    // 3️⃣ Fallback: sum first two numbers
-    const nums = text.match(/\d+\.?\d*/g) || [];
-    if (nums.length >= 2) return `${Number(nums[0]) + Number(nums[1])}`;
+//     // 3️⃣ Fallback: sum first two numbers
+//     const nums = text.match(/\d+\.?\d*/g) || [];
+//     if (nums.length >= 2) return `${Number(nums[0]) + Number(nums[1])}`;
 
-    // 4️⃣ Default offline response
-    return "⚠️ Offline Mode: I am currently offline, but I can still help using my local knowledge.";
-}
+//     // 4️⃣ Default offline response
+//     return "⚠️ Offline Mode: I am currently offline, but I can still help using my local knowledge.";
+// }
 
-/* ================================
-   SAFE CALCULATION FUNCTION
-================================ */
-function safeCalc(expr) {
-    // Tokenize numbers and operators
-    const tokens = expr.match(/(\d+(\.\d+)?|[%\+\-\*\/\(\)])/g);
-    if (!tokens) return undefined;
+// /* ================================
+//    SAFE CALCULATION FUNCTION
+// ================================ */
+// function safeCalc(expr) {
+//     // Tokenize numbers and operators
+//     const tokens = expr.match(/(\d+(\.\d+)?|[%\+\-\*\/\(\)])/g);
+//     if (!tokens) return undefined;
 
-    // Convert % to decimal already done, now evaluate safely
-    // Using Function constructor to compute math safely without eval
-    // Only allow math expressions
-    const sanitizedExpr = tokens.join(' ');
-    return Function(`"use strict"; return (${sanitizedExpr})`)();
+//     // Convert % to decimal already done, now evaluate safely
+//     // Using Function constructor to compute math safely without eval
+//     // Only allow math expressions
+//     const sanitizedExpr = tokens.join(' ');
+//     return Function(`"use strict"; return (${sanitizedExpr})`)();
 }
 // Generate e-chat response using API
 const generateEchatResponse = async (incomingMsgDiv) => {
